@@ -1,0 +1,25 @@
+{
+  "name": "elibrary-api",
+  "version": "1.0.0",
+  "description": "Electronic Library Project with TypeScript.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherazakrampro/elibrary-api.git"
+  },
+  "author": "Sheraz Akram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherazakrampro/elibrary-api/issues"
+  },
+  "homepage": "https://github.com/sherazakrampro/elibrary-api#readme",
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
