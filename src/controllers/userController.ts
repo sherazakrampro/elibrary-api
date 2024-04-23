@@ -34,6 +34,7 @@ const registerUser = async (
   // 4. token generation - JWT
   const token = sign({ _id: newUser._id }, config.jwtSecret as string, {
     expiresIn: "7d",
+    algorithm: "HS256",
   });
   // 5. response
   res.status(201).json({
