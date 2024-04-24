@@ -62,7 +62,7 @@ const registerUser = async (
   }
 };
 
-// Login a user
+// Login a user controller
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
 

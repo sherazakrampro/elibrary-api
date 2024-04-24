@@ -1,21 +1,23 @@
 import express from "express";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import userRouter from "./routes/userRouter";
+import bookRouter from "./routes/bookRouter";
 
 const app = express();
 
-// middlewares
+// Middlewares
 app.use(express.json());
 
-// home route
+// Home Route
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to E-Library API",
   });
 });
 
-// user routes
+// Other Routes
 app.use("/api/users", userRouter);
+app.use("/api/books", bookRouter);
 
 // Global Error Handler
 app.use(globalErrorHandler);
