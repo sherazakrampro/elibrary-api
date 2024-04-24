@@ -20,7 +20,7 @@ const registerUser = async (
     return next(error);
   }
 
-  // 2. check-in database
+  // 2. check if user already exists
   try {
     const user = await UserModel.findOne({ email });
     if (user) {
