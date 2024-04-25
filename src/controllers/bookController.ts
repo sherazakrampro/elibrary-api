@@ -74,6 +74,9 @@ const regiterBook = async (req: Request, res: Response, next: NextFunction) => {
   // console.log(coverImageUploadResult);
   // console.log(bookFileUploadResult);
 
+  // @ts-ignore
+  console.log("userId", req.userId);
+
   // create new book
   let newBook;
   try {
