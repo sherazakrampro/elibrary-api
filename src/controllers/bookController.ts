@@ -226,4 +226,15 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { regiterBook, updateBook };
+// get all books
+const listBooks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const allBooks = await BookModel.find();
+    res.status(200).json(allBooks);
+  } catch (error) {
+    console.log("error while listing books", error);
+    return next(createHttpError(500, "error while listing books"));
+  }
+};
+
+export { regiterBook, updateBook, listBooks };
