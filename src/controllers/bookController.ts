@@ -252,4 +252,21 @@ const singleBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { regiterBook, updateBook, listBooks, singleBook };
+// delete a book
+const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
+  const bookId = req.params.bookId;
+  try {
+    const deletedBook = await BookModel.findByIdAndDelete(bookId);
+    if (!deletedBook) {
+      return next(createHttpError(404, "Book not found"));
+    }
+    res
+      .status(200)
+      .json({ message: "Book deleted successfully", data: deletedBook });
+  } catch (error) {
+    console.log("error while deleting a book", error);
+    return next(createHttpError(500, "error while deleting a book"));
+  }
+};
+
+export { regiterBook, updateBook, listBooks, singleBook, deleteBook };

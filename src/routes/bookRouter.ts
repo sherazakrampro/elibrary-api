@@ -5,6 +5,7 @@ import {
   regiterBook,
   updateBook,
   singleBook,
+  deleteBook,
 } from "../controllers/bookController";
 import multer from "multer";
 import authenticate from "../middlewares/authenticate";
@@ -44,5 +45,8 @@ bookRouter.get("/", listBooks);
 
 // get a single book
 bookRouter.get("/:bookId", singleBook);
+
+// delete a book
+bookRouter.delete("/:bookId", deleteBook);
 
 export default bookRouter;
