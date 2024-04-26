@@ -256,13 +256,36 @@ const singleBook = async (req: Request, res: Response, next: NextFunction) => {
 const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
   const bookId = req.params.bookId;
   try {
-    const deletedBook = await BookModel.findByIdAndDelete(bookId);
+    const deletedBook = await BookModel.findOne({ _id: bookId });
     if (!deletedBook) {
       return next(createHttpError(404, "Book not found"));
     }
+    // check if user is author of the book
+    const _req = req as AuthRequest;
+    if (deletedBook.author.toString() !== _req.userId) {
+      return next(createHttpError(403, "unauthorized"));
+    }
+    // get public id of cover image
+    const coverFileSplits = deletedBook.coverImage.split("/");
+    const coverImagePublicId =
+      coverFileSplits.at(-2) + "/" + coverFileSplits.at(-1)?.split(".").at(-2);
+
+    // get public id of book file
+    const bookFileSplits = deletedBook.file.split("/");
+    const bookFilePublicId =
+      bookFileSplits.at(-2) + "/" + bookFileSplits.at(-1);
+
+    // delete cover image and book file from cloudinary
+    await cloudinary.uploader.destroy(coverImagePublicId);
+    await cloudinary.uploader.destroy(bookFilePublicId);
+
+    // delete book from database
+    await BookModel.deleteOne({ _id: bookId });
+
+    // response
     res
       .status(200)
-      .json({ message: "Book deleted successfully", data: deletedBook });
+      .json({ message: "Book deleted successfully", bookID: bookId });
   } catch (error) {
     console.log("error while deleting a book", error);
     return next(createHttpError(500, "error while deleting a book"));
