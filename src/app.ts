@@ -1,9 +1,18 @@
 import express from "express";
+import cors from "cors";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import userRouter from "./routes/userRouter";
 import bookRouter from "./routes/bookRouter";
+import { config } from "./config/config";
 
 const app = express();
+
+// cors
+app.use(
+  cors({
+    origin: config.frontendDomain,
+  })
+);
 
 // Middlewares
 app.use(express.json());
