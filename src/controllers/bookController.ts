@@ -9,7 +9,7 @@ import { AuthRequest } from "../middlewares/authenticate";
 // Register a book controller
 const regiterBook = async (req: Request, res: Response, next: NextFunction) => {
   // destructuring the data
-  const { title, genre } = req.body;
+  const { title, genre, description } = req.body;
 
   // types of files for typescript
   const files = req.files as { [filename: string]: Express.Multer.File[] };
@@ -78,6 +78,7 @@ const regiterBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     newBook = await BookModel.create({
       title,
+      description,
       genre,
       author: _req.userId,
       coverImage: coverImageUploadResult.secure_url,
